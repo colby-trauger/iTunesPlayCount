@@ -4,7 +4,7 @@ from subprocess import call
 import getopt
 
 XML = "iTunes Music Library.xml"
-WIN_PATH = "C:\\Users\\" + str(os.environ.get("USERNAME")) + "\\My Music\\iTunes\\" + XML
+WIN_PATH = "C:\\Users\\" + str(os.environ.get("USERNAME")) + "\\Music\\iTunes\\" + XML
 MAC_PATH =  os.path.expanduser("~/Music/iTunes/") + XML
 
 def usage():
