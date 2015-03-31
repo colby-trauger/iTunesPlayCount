@@ -31,10 +31,7 @@ else:
 	print "Only Windows 7, Windows 8, and Mac OS X supported"
 	sys.exit(1)
 
-if os.path.isfile("./" + XML) == False:
-	call(["ln", "-s", path])
-
-tree = ET.parse(XML)
+tree = ET.parse(path)
 
 songs = tree.find("dict/dict")
 
