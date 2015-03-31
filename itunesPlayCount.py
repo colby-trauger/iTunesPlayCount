@@ -58,7 +58,34 @@ for song in songs:
 m, s = divmod(totalTime, 60)
 h, m = divmod(m, 60)
 d, h = divmod(h, 24)
+mon, d = divmod(d, 31)
+year, mon = divmod(mon, 12)
 
-print "%d days %d hours %02d minutes %02d seconds" % (d, h, m, s)
+year_string = "year"
+mon_string = "month"
+d_string = "day"
+h_string = "hour"
+m_string = "minute"
+s_string = "second"
+
+if year != 1:
+	year_string += "s"
+
+if mon != 1:
+	mon_string += "s"
+
+if d != 1:
+	d_string += "s"
+
+if h != 1:
+	h_string += "s"
+
+if m != 1:
+	m_string += "s"
+
+if s != 1:
+	s_string += "s"
+
+print "%d %s %d %s %d %s %d %s %02d %s %02d %s" % (year, year_string, mon, mon_string, d, d_string, h, h_string, m, m_string, s, s_string)
 
 sys.exit(0)
