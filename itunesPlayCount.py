@@ -1,20 +1,38 @@
 import xml.etree.ElementTree as ET
 import os, sys
 from subprocess import call
-
-if sys.platform == "win32":
-	path = "C:\\Users\\" + os.environ.get("USERNAME") + "\\My Music\\iTunes\\"
-elif sys.platform == "darwin":
-	path = os.path.expanduser("~/Music/iTunes/")
-else:
-	print "Only Windows 7, Windows 8, and Mac OS X supported"
-	exit(1)
+import getopt
 
 XML = "iTunes Music Library.xml"
-path = path + XML
+WIN_PATH = "C:\\Users\\" + str(os.environ.get("USERNAME")) + "\\My Music\\iTunes\\" + XML
+MAC_PATH =  os.path.expanduser("~/Music/iTunes/") + XML
+
+def usage():
+	print "One of the following is where your iTunes XML should originate:\n"
+	print "  Mac OS X:	" + MAC_PATH
+	print "  Windows:	" + WIN_PATH
+
+try:
+	opts, args = getopt.getopt(sys.argv[1:], "h", ["help"])
+except getopt.GetoptError as err:
+	print str(err)
+	sys.exit(2)
+
+for o, a in opts:
+	if o in ("-h", "--help"):
+		usage()
+		sys.exit()
+
+if sys.platform == "win32":
+	path = WIN_PATH 
+elif sys.platform == "darwin":
+	path = MAC_PATH
+else:
+	print "Only Windows 7, Windows 8, and Mac OS X supported"
+	sys.exit(1)
 
 if os.path.isfile("./" + XML) == False:
-	call(["ln", "-s", path, XML])
+	call(["ln", "-s", path])
 
 tree = ET.parse(XML)
 
@@ -46,4 +64,4 @@ d, h = divmod(h, 24)
 
 print "%d days %d hours %02d minutes %02d seconds" % (d, h, m, s)
 
-exit(0)
+sys.exit(0)
